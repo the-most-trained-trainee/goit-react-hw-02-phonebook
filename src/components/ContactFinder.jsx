@@ -1,5 +1,7 @@
 import React from 'react';
 import ContactEntry from './ContactEntry';
+import ContactFinedStyled from './ContactFinderStyled';
+import EntriesListStyled from './EntriesListStyled';
 
 class ContactFinder extends React.Component {
   state = {
@@ -19,6 +21,10 @@ class ContactFinder extends React.Component {
     const result = this.contacts.filter(contact =>
       contact.name.includes(searchRequest)
     );
+
+    // const toAdd = this.state.find === "" ? this.contacts : result;
+    // this.setState({ found: toAdd });
+
     this.setState({ found: result });
   };
 
@@ -30,7 +36,7 @@ class ContactFinder extends React.Component {
 
   render() {
     return (
-      <div>
+      <ContactFinedStyled>
         <label htmlFor="">Find Contacts by Name</label>
         <input
           type="text"
@@ -38,19 +44,29 @@ class ContactFinder extends React.Component {
           value={this.state.find}
           onChange={this.searchRequest}
         />
-        <div>
+        <EntriesListStyled>
+          {/* {(this.state.found.length > 0 ? this.state.found : this.contacts).map(
+            contact => (
+              <ContactEntry
+                key={contact.id}
+                id={contact.id}
+                name={contact.name}
+                number={contact.number}
+                onDelete={this.deleteContact}
+              />
+            )
+          )} */}
           {this.state.found.map(contact => (
-            <div>
-              <p>
-                {contact.name}: {contact.number}
-              </p>
-              <button onClick={() => this.deleteContact(contact.id)}>
-                Delete
-              </button>
-            </div>
+            <ContactEntry
+              key={contact.id}
+              id={contact.id}
+              name={contact.name}
+              number={contact.number}
+              onDelete={this.deleteContact}
+            />
           ))}
-        </div>
-      </div>
+        </EntriesListStyled>
+      </ContactFinedStyled>
     );
   }
 }

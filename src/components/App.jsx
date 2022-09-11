@@ -2,19 +2,15 @@ import React from 'react';
 import { nanoid } from 'nanoid';
 import Container from './Container';
 import ContactSubmissionForm from './ContactAddingForm';
-// import ContactList from './ContactList';
 import ContactFinder from './ContactFinder';
 
 class App extends React.Component {
   state = {
     contacts: [
-      { id: 11, name: 'Masha', number: '1111223213213123' },
-      { id: 22, name: 'Pasha', number: '1331123213213123' },
-      { id: 33, name: 'Sasha', number: '11111288813213123' },
-      { id: 44, name: 'Natali', number: '11114322232131623' },
-      { id: 55, name: 'Dasha', number: '999991223213213123' },
-      { id: 66, name: 'Ninel', number: '1177111223213213123' },
-      { id: 77, name: 'Andrei', number: '188888223213213123' },
+      {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
+      {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
+      {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
+      {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
     ],
   };
 
@@ -31,21 +27,18 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <Container>
-          <h1>Phonebook</h1>
-          <ContactSubmissionForm
-            onSubmit={this.contactSubmit}
-            contacts={this.state.contacts}
-          />
-        </Container>
+      <Container>
+        <h1>Phonebook</h1>
+        <ContactSubmissionForm
+          onSubmit={this.contactSubmit}
+          contacts={this.state.contacts}
+        />
         <h2>Contacts</h2>
-        {/* <ContactList contacts={this.state.contacts} /> */}
         <ContactFinder
           onDelete={this.contactDelete}
           contacts={this.state.contacts}
         />
-      </div>
+      </Container>
     );
   }
 }
