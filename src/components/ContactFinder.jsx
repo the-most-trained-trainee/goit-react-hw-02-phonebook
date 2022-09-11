@@ -9,17 +9,23 @@ class ContactFinder extends React.Component {
 
   contacts = this.props.contacts;
 
-  requestSearch = e => {
+  searchRequest = e => {
     this.setState({ find: e.currentTarget.value });
-    this.findContacts();
+    this.findContact();
   };
 
-  findContacts = () => {
+  findContact = () => {
     const searchRequest = this.state.find;
     const result = this.contacts.filter(contact =>
       contact.name.includes(searchRequest)
     );
     this.setState({ found: result });
+  };
+
+  deleteContact = id => {
+    const index = this.contacts.findIndex(contact => contact.id === id);
+    this.contacts.splice(index, 1);
+    this.findContact();
   };
 
   render() {
@@ -30,11 +36,18 @@ class ContactFinder extends React.Component {
           type="text"
           name="find"
           value={this.state.find}
-          onChange={this.requestSearch}
+          onChange={this.searchRequest}
         />
         <div>
           {this.state.found.map(contact => (
-            <p>{contact.name}: {contact.number}</p>
+            <div>
+              <p>
+                {contact.name}: {contact.number}
+              </p>
+              <button onClick={() => this.deleteContact(contact.id)}>
+                Delete
+              </button>
+            </div>
           ))}
         </div>
       </div>

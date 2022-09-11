@@ -1,6 +1,6 @@
 import React from 'react';
 
-class ContactAddingForm extends React.Component {
+class ContactSubmissionForm extends React.Component {
   state = {
     name: '',
     number: '',
@@ -13,17 +13,24 @@ class ContactAddingForm extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.onSubmit(this.state);
-    this.setState({
-      name: '',
-      number: '',
-    });
+
+    const contacts = this.props.contacts;
+    const addingContact = this.state.name;
+
+    if (!contacts.some(entry => entry.name === addingContact)) {
+      this.props.onSubmit(this.state);
+      this.setState({
+        name: '',
+        number: '',
+      });
+    } else {
+      alert(addingContact + ' is already in contacts.');
+    }
   };
 
   render() {
     return (
       <form action="" onSubmit={this.handleSubmit}>
-        <h1>Phonebook</h1>
         <label htmlFor="">Name</label>
         <input
           type="text"
@@ -50,4 +57,4 @@ class ContactAddingForm extends React.Component {
   }
 }
 
-export default ContactAddingForm;
+export default ContactSubmissionForm;
