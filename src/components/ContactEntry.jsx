@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ContactEntryStyled from './ContactEntryStyled';
 
 class ContactEntry extends React.Component {
@@ -14,5 +15,12 @@ class ContactEntry extends React.Component {
     );
   }
 }
+
+ContactEntry.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
 
 export default ContactEntry;

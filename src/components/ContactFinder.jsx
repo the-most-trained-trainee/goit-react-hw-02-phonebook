@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ContactEntry from './ContactEntry';
 import ContactFinedStyled from './ContactFinderStyled';
 import EntriesListStyled from './EntriesListStyled';
@@ -13,25 +14,36 @@ class ContactFinder extends React.Component {
 
   searchRequest = e => {
     this.setState({ find: e.currentTarget.value });
-    this.findContact();
+    this.findContact(e.currentTarget.value);
   };
 
-  findContact = () => {
-    const searchRequest = this.state.find;
-    const result = this.contacts.filter(contact =>
-      contact.name.includes(searchRequest)
-    );
-
-    // const toAdd = this.state.find === "" ? this.contacts : result;
-    // this.setState({ found: toAdd });
-
+  findContact = searchRequest => {
+    let result = [];
+    if (searchRequest === '') {
+      result = this.contacts;
+    } else {
+      result = this.contacts.filter(contact =>
+        contact.name.toUpperCase().includes(searchRequest.toUpperCase())
+      );
+    }
     this.setState({ found: result });
   };
+
+  componentDidMount() {
+    this.findContact('');
+  }
 
   deleteContact = id => {
     const index = this.contacts.findIndex(contact => contact.id === id);
     this.contacts.splice(index, 1);
-    this.findContact();
+    this.findContact(this.state.find);
+
+    setTimeout(() => {
+      if (this.state.found.length === 0) {
+        this.setState({ find: '' });
+        this.setState({ found: this.contacts });
+      }
+    }, 200);
   };
 
   render() {
@@ -45,17 +57,6 @@ class ContactFinder extends React.Component {
           onChange={this.searchRequest}
         />
         <EntriesListStyled>
-          {/* {(this.state.found.length > 0 ? this.state.found : this.contacts).map(
-            contact => (
-              <ContactEntry
-                key={contact.id}
-                id={contact.id}
-                name={contact.name}
-                number={contact.number}
-                onDelete={this.deleteContact}
-              />
-            )
-          )} */}
           {this.state.found.map(contact => (
             <ContactEntry
               key={contact.id}
@@ -70,5 +71,10 @@ class ContactFinder extends React.Component {
     );
   }
 }
+
+ContactFinder.propTypes = {
+  onDelete: PropTypes.func.isRequired,
+  contacts: PropTypes.array.isRequired,
+};
 
 export default ContactFinder;

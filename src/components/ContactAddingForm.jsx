@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import StyledForm from './ContactAddingFormStyled';
 
 class ContactSubmissionForm extends React.Component {
@@ -59,5 +60,10 @@ class ContactSubmissionForm extends React.Component {
     );
   }
 }
+
+ContactSubmissionForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  contacts: PropTypes.array.isRequired,
+};
 
 export default ContactSubmissionForm;
