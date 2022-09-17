@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ContactEntry from './ContactEntry';
-import ContactFinedStyled from './ContactFinderStyled';
-import EntriesListStyled from './EntriesListStyled';
+import ContactFinedStyled from './StyledContactFinder';
+import EntriesListStyled from './StyledEntriesList';
 
-class ContactFinder extends React.Component {
+class ContactList extends React.Component {
   state = {
     find: '',
     found: [],
@@ -36,6 +36,7 @@ class ContactFinder extends React.Component {
   deleteContact = id => {
     const index = this.contacts.findIndex(contact => contact.id === id);
     this.contacts.splice(index, 1);
+    
     this.findContact(this.state.find);
 
     setTimeout(() => {
@@ -72,9 +73,9 @@ class ContactFinder extends React.Component {
   }
 }
 
-ContactFinder.propTypes = {
+ContactList.propTypes = {
   onDelete: PropTypes.func.isRequired,
   contacts: PropTypes.array.isRequired,
 };
 
-export default ContactFinder;
+export default ContactList;

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ContactEntryStyled from './ContactEntryStyled';
+import ContactEntryStyled from './StyledContactEntry';
 
 class ContactEntry extends React.Component {
   render() {
