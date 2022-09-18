@@ -15,10 +15,10 @@ class App extends React.Component {
   };
 
   contactSubmit = data => {
-    const updatedContactList = this.state.contacts;
-    const newContact = { id: nanoid(), name: data.name, number: data.number };
-    updatedContactList.push(newContact);
-    this.setState({ contacts: updatedContactList });
+    // console.log(data)
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, { ...data, id: nanoid() }],
+    }));
   };
 
   contactDelete = data => {

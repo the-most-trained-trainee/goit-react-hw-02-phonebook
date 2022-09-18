@@ -16,17 +16,17 @@ class ContactForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const contacts = this.props.contacts;
-    const addingContact = this.state.name;
+    const { contacts } = this.props;
+    const { name } = this.state;
 
-    if (!contacts.some(entry => entry.name === addingContact)) {
-      this.props.onSubmit(this.state);
+    if (!contacts.some(entry => entry.name === name)) {
+      this.props.onSubmit({ name: this.state.name, number: this.state.number });
       this.setState({
         name: '',
         number: '',
       });
     } else {
-      alert(addingContact + ' is already in contacts.');
+      alert(name + ' is already in contacts.');
     }
   };
 
