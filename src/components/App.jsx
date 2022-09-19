@@ -15,14 +15,16 @@ class App extends React.Component {
   };
 
   contactSubmit = data => {
-    // console.log(data)
     this.setState(prevState => ({
       contacts: [...prevState.contacts, { ...data, id: nanoid() }],
     }));
   };
 
-  contactDelete = data => {
-    this.setState({ contacts: data });
+  onDelete = id => {
+    const updatedContacts = this.state.contacts.filter(
+      contact => contact.id !== id
+    );
+    this.setState({ contacts: updatedContacts });
   };
 
   render() {
@@ -34,10 +36,7 @@ class App extends React.Component {
           contacts={this.state.contacts}
         />
         <h2>Contacts</h2>
-        <ContactList
-          onDelete={this.contactDelete}
-          contacts={this.state.contacts}
-        />
+        <ContactList onDelete={this.onDelete} contacts={this.state.contacts} />
       </Container>
     );
   }
